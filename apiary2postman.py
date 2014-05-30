@@ -62,7 +62,6 @@ def main():
                         help='output file. Outputs Postman collection JSON. If not supplied, stdout is used.')
 
     args = parser.parse_args()
-    print args
 
     input = ''
     if hasattr(args, 'input'):
