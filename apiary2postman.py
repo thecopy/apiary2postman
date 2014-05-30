@@ -68,6 +68,7 @@ def main():
         # JSON mode
         input = args.input.read()
     elif hasattr(args, 'blueprint_input'):
+        # blueprint mode
         input = blueprint2json(args.blueprint_input.read())
     else:
         # API mode
