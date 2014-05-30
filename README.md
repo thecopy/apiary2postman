@@ -3,6 +3,12 @@ apiary2postman
 
 Tool for generating a Postman collection from the Apiary API, or Blueprint JSON
 
+Supports
+
+  * Blueprint API Markup
+  * Blueprint API JSON from Snowcrash
+  * Fetching Blueprint API Markup from Apiary API
+
 # Usage
 
 ##### If you have the Blueprint API markup, use the `blueprint` subcommand:
