@@ -27,7 +27,7 @@ It is also possible to pipe everything:
     
 # Prerequisites
 
-[Snowcrash](https://github.com/apiaryio/snowcrash#install]) is required.
+[Snowcrash](https://github.com/apiaryio/snowcrash#install) is required.
 
 To install on OS X:
 
