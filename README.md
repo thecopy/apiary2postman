@@ -9,15 +9,15 @@ Tool for generating a Postman collection from the Apiary API, or Blueprint JSON
 
     apiary2postman.py blueprint some.blueprint > postman.dump
     
-##### It is also possible to pipe everything:
+###### It is also possible to pipe everything:
 
     cat some.blueprint | apiary2postman.py blueprint > postman.dump
 
-##### To generate a total Postman environment dump from Apiary API:
+##### To generate a total Postman environment dump from Apiary API, use the `api` subcommand:
  
     apiary2postman.py api my_api > postman.dump
 
-##### Or to generate only a Postman collection from Apiary API:
+###### Or to generate only a Postman collection from Apiary API:
 
     apiary2postman.py --only-collection api my_api > postman.collection
 
@@ -27,7 +27,7 @@ It's also possible to specify the output file using the `--output`.
 
     apiary2postman.py json some.json > postman.dump
     
-##### It is also possible to pipe everything:
+###### It is also possible to pipe everything:
 
     cat some.json | apiary2postman.py json > postman.dump
 
