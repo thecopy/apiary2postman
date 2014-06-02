@@ -86,8 +86,12 @@ def main():
 
         blueprint = fetch_blueprint(args.name[0], apikey)
         input = blueprint2json(blueprint)
+        
+    output = args.output    
+    if args.output != stdout:
+        output = output[0]
 
-    write(input, args.output, args.only_collection, args.pretty)
+    write(input, output, args.only_collection, args.pretty)
 
 if  __name__ =='__main__':
     main()
