@@ -9,33 +9,39 @@ Supports
   * Blueprint API JSON from Snowcrash
   * Fetching Blueprint API Markup from Apiary API
 
+# Installation
+
+    pip install apiary2postman
+
 # Usage
+
+    apiary2postman json blueprint.json --output postman.json
 
 ##### If you have the Blueprint API markup, use the `blueprint` subcommand:
 
-    apiary2postman.py blueprint some.blueprint > postman.dump
-    
+    apiary2postman blueprint some.blueprint > postman.dump
+  
 ###### It is also possible to pipe everything:
 
-    cat some.blueprint | apiary2postman.py blueprint > postman.dump
+    cat some.blueprint | apiary2postman blueprint > postman.dump
 
 ##### To generate a total Postman environment dump from Apiary API, use the `api` subcommand:
  
-    apiary2postman.py api my_api > postman.dump
+    apiary2postman api my_api > postman.dump
 
 ###### Or to generate only a Postman collection from Apiary API:
 
-    apiary2postman.py --only-collection api my_api > postman.collection
+    apiary2postman --only-collection api my_api > postman.collection
 
 It's also possible to specify the output file using the `--output`.
 
 ##### If you have the Blueprint JSON already generated, use the `json` subcommand:
 
-    apiary2postman.py json some.json > postman.dump
+    apiary2postman json some.json > postman.dump
     
 ###### It is also possible to pipe everything:
 
-    cat some.json | apiary2postman.py json > postman.dump
+    cat some.json | apiary2postman json > postman.dump
 
 
     
