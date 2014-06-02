@@ -41,7 +41,7 @@ It's also possible to specify the output file using the `--output`.
     
 # Prerequisites
 
-[Snowcrash](https://github.com/apiaryio/snowcrash#install) is required.
+[Snowcrash](https://github.com/apiaryio/snowcrash#install) is required if you want to use Blueprint API markup/Apiary API.
 
 To install on OS X:
 
