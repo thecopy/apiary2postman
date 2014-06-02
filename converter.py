@@ -17,8 +17,10 @@ def write(json_data, out=stdout, only_collection=False, pretty=False):
 	result['environments'] = [ createEnvironment(json_obj) ]	
 
 	# Create the collection
-	result['collections'] = parseResourceGroups(json_obj['resourceGroups'])
-
+	result['collections'] = parseResourceGroups(
+		json_obj['resourceGroups'], 
+		result['environments'][0]['values'], 
+		only_collection )
 
 	result_out = result
 	if only_collection:
@@ -52,7 +54,7 @@ def createEnvironment(json_obj):
 
 	return environment
 
-def parseResourceGroups(resourceGroups):
+def parseResourceGroups(resourceGroups, environment_vals, only_collection):
 	out = []
 	for resourceGroup in resourceGroups:
 		collection = dict()
@@ -78,11 +80,18 @@ def parseResourceGroups(resourceGroups):
 			for action in resource['actions']:
 				request = dict()
 				request['id'] = str(uuid4())
-				request['version'] = 1
+				request['version'] = 2
 				request['name'] = action['name']
 				request['description'] = action['description']
+				request['descriptionFormat'] = 'html'
 				request['method'] = action['method']
+
 				request['url'] = "{{HOST}}"+sub_url
+				if only_collection:
+					for value in environment_vals:
+						if value['name'] == 'HOST':
+							request['url'] = value['value'] + sub_url
+
 				request['dataMode'] = 'params'
 				request['data'] = []
 
@@ -91,6 +100,7 @@ def parseResourceGroups(resourceGroups):
 				request['tests'] = ''
 				request['time'] = int(time())
 				request['responses'] = []
+				request['synced'] = False
 
 				for parameter in resource['parameters']:
 					request['url'] = request['url'].replace('{'+ parameter['name'] +'}', parameter['example'])
