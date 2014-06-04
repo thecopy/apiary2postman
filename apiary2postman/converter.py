@@ -41,6 +41,7 @@ def createEnvironment(json_obj):
 	environment['syncedFilename'] = ''
 	environment['values'] = []
 
+	
 	for metadata in json_obj['metadata']:
 		if metadata['name'] == "FORMAT":
 			continue

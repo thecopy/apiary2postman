@@ -4,7 +4,8 @@ import argparse
 import subprocess
 import os
 from converter import write
-from apiary import blueprint2json,fetch_blueprint
+from blueprint import blueprint2json,fetch_blueprint
+
 def readInput():
     content = ""
     for line in stdin:
@@ -69,6 +70,7 @@ def main():
         input = args.input.read()
     elif hasattr(args, 'blueprint_input'):
         # blueprint mode
+        check_snowcrash()
         input = blueprint2json(args.blueprint_input.read())
     else:
         # API mode
