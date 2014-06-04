@@ -107,9 +107,6 @@ def parseResourceGroups(resourceGroups, environment_vals, only_collection):
 
 				headers = []
 
-				# Add Authorization
-				headers.append('Authorization: {{BASIC-Auth}}')
-
 				for example in action['examples']:
 					# Add Headers
 					for request_ex in example['requests']:
