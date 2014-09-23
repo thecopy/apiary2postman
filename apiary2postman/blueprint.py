@@ -11,10 +11,7 @@ def fetch_blueprint(name, key):
 	return response_body['code']
 
 def blueprint2json(blueprint):
-	t = NamedTemporaryFile()
-	p = Popen(['snowcrash', '--format', 'json', '--output', t.name], stdin=PIPE, stdout=PIPE, stderr=PIPE)
-	p.communicate(blueprint)
-	out = t.read()
-	t.close()
+	p = Popen(['snowcrash', '--format', 'json'], stdin=PIPE, stdout=PIPE, stderr=PIPE)
+	out, err = p.communicate(blueprint)
 	return out
 	
