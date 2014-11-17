@@ -3,29 +3,60 @@ from sys import stdout
 from uuid import uuid4
 from time import time
 
-def write(json_data, out=stdout, only_collection=False, pretty=False):
-	result = dict()
-	json_obj = json.loads(json_data)
+def _buildCollectionResponse(apiary):
+	environment = createEnvironment(apiary)
 
-	# Create the header
-	result['version'] = 1
-	result['collections'] = []
-	result['globals'] =[]
-	result['headerPresets'] =[]
+	# Create the collection
+	collections = parseResourceGroups(
+		apiary['resourceGroups'], 
+		environment['values'], 
+		True)
 
+	result = {
+		'id' : str(uuid4()),
+		'name' : apiary['name'],
+		'description' : apiary['description'],
+	  'timestamp' : int(time()),
+	  'remote_id' : 0,
+	  'synced' : False,
+	  'folders' : [],
+	  'requests' : [],
+	}
+
+	for collection in collections:
+		result['folders'] += collection['folders']
+		result['requests'] += collection['requests']
+
+	return result
+
+def _buildFullResponse(apiary):
 	# Create the Environment
-	result['environments'] = [ createEnvironment(json_obj) ]	
+	environment = createEnvironment(apiary)
+
+	# Create the Header
+	result = {
+		'version' : 1,
+		'globals' : [],
+		'headerPresets' : [],
+		'environments' : [ environment ],
+	}
 
 	# Create the collection
 	result['collections'] = parseResourceGroups(
-		json_obj['resourceGroups'], 
+		apiary['resourceGroups'], 
 		result['environments'][0]['values'], 
-		only_collection )
+		False)
 
-	result_out = result
+	return result
+
+def write(json_data, out=stdout, only_collection=False, pretty=False):
+	json_obj = json.loads(json_data)
+
 	if only_collection:
-		result_out = result['collections'][0]
-	
+		result_out = _buildCollectionResponse(json_obj)
+	else:
+		result_out = _buildFullResponse(json_obj)
+
 	if pretty:
 		json.dump(result_out, out, indent=2, separators=(',', ': '))
 	else:
