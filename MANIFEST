@@ -2,6 +2,6 @@
 setup.cfg
 setup.py
 apiary2postman/__init__.py
-apiary2postman/apiary.py
 apiary2postman/apiary2postman.py
+apiary2postman/blueprint.py
 apiary2postman/converter.py
