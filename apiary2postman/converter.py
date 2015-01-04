@@ -98,6 +98,7 @@ def parseResourceGroups(resourceGroups, environment_vals, only_collection):
 		collection['timestamp'] = int(time())
 		collection['synced'] = False
 		collection['remote_id'] = 0
+		collection['order'] = []
 
 		for resource in resourceGroup['resources']:		
 			folder = dict()
@@ -157,8 +158,9 @@ def parseResourceGroups(resourceGroups, environment_vals, only_collection):
 							headers.append('Accept: ' + header['value'])
 
 				request['headers'] = '\n'.join(headers)
-				# Add reference to folder to this request
-				request['collectionId'] = folder['id']
+				# Add reference to collection to this request
+				# The collectionId field refers to the parent collection, not the folder
+				request['collectionId'] = collection['id']
 				# Add reference to the request to the current folder
 				folder['order'].append( request['id'] )
 				# Add request json to the collection
