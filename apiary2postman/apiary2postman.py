@@ -78,7 +78,7 @@ def main():
 
         apikey = None
         if args.key != None:
-            apikey = args.key[0]
+          apikey = args.key
         else:
             apikey = os.environ.get('APIARY_API_KEY')
 
