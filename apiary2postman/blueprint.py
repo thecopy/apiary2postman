@@ -11,7 +11,7 @@ def fetch_blueprint(name, key):
 	return response_body['code']
 
 def blueprint2json(blueprint):
-	p = Popen(['snowcrash', '--format', 'json'], stdin=PIPE, stdout=PIPE, stderr=PIPE)
+	p = Popen(['drafter', '--format', 'json'], stdin=PIPE, stdout=PIPE, stderr=PIPE)
 	out, err = p.communicate(blueprint)
 	return out
 	

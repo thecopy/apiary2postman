@@ -6,7 +6,7 @@ Tool for generating a Postman collection from the Apiary API, or Blueprint JSON
 Supports
 
   * Blueprint API Markup
-  * Blueprint API JSON from Snowcrash
+  * Blueprint API JSON from Drafter (Snowcrash)
   * Fetching Blueprint API Markup from Apiary API
 
 # Installation
@@ -47,9 +47,9 @@ It's also possible to specify the output file using the `--output`.
     
 # Prerequisites
 
-[Snowcrash](https://github.com/apiaryio/snowcrash#install) is required if you want to use Blueprint API markup/Apiary API.
+[Drafter](https://github.com/apiaryio/drafter) is required if you want to use Blueprint API markup/Apiary API.
 
 To install on OS X:
 
-    brew install --HEAD https://raw.github.com/apiaryio/snowcrash/master/tools/homebrew/snowcrash.rb
-    
+    brew install --HEAD https://raw.github.com/apiaryio/drafter/master/tools/homebrew/drafter.rb
+  

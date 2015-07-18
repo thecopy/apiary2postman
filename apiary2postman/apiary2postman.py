@@ -13,17 +13,17 @@ def readInput():
 
     return content
 
-def check_snowcrash():
+def check_drafter():
     try: 
-        subprocess.check_output(['which', 'snowcrash'])
+        subprocess.check_output(['which', 'drafter'])
     except: 
-        print 'Please install snowcrash:'
+        print 'Please install drafter:'
         print ''
         print 'By using brew:'
-        print '\tbrew install --HEAD https://raw.github.com/apiaryio/snowcrash/master/tools/homebrew/snowcrash.rb'
+        print '\tbrew install --HEAD https://raw.github.com/apiaryio/drafter/master/tools/homebrew/drafter.rb'
         print ''
         print 'By source, see:'
-        print '\thttps://github.com/apiaryio/snowcrash#build'
+        print '\thttps://github.com/apiaryio/drafter'
         exit(3)
 
 def main():
@@ -38,12 +38,12 @@ def main():
     subparsers = parser.add_subparsers(help='',title='subcommands', 
                                    description='valid subcommands')
 
-    parser_blueprint = subparsers.add_parser('blueprint', description='blueprint: Read Blueprint API markup, then convert it using snowcrash, then generate Postman collection JSON.',
-        help='Read Blueprint API markup, then convert it using snowcrash, then generate Postman collection JSON. Use "blueprint -h" for more help.')
+    parser_blueprint = subparsers.add_parser('blueprint', description='blueprint: Read Blueprint API markup, then convert it using drafter, then generate Postman collection JSON.',
+        help='Read Blueprint API markup, then convert it using drafter, then generate Postman collection JSON. Use "blueprint -h" for more help.')
 
     parser_json = subparsers.add_parser('json', description='json: Use prepared JSON to generate the Postman collection.',help='Use prepared JSON. Use "json -h" for more help.')
     
-    parser_api = subparsers.add_parser('api', description='api: Use the Apiary API to fetch the Blueprint markup, then convert it using snowcrash, then generate Postman collection JSON.',
+    parser_api = subparsers.add_parser('api', description='api: Use the Apiary API to fetch the Blueprint markup, then convert it using drafter, then generate Postman collection JSON.',
         help='Use the Apiary API to fetch the JSON. Use "api -h" for more help.')
 
     parser.add_argument('--pretty', dest='pretty', action='store_true', default=False,
@@ -70,11 +70,11 @@ def main():
         input = args.input.read()
     elif hasattr(args, 'blueprint_input'):
         # blueprint mode
-        check_snowcrash()
+        check_drafter()
         input = blueprint2json(args.blueprint_input.read())
     else:
         # API mode
-        check_snowcrash()
+        check_drafter()
 
         apikey = None
         if args.key != None:
