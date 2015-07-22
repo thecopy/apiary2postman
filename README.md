@@ -9,6 +9,15 @@ Supports
   * Blueprint API JSON from Drafter (Snowcrash)
   * Fetching Blueprint API Markup from Apiary API
 
+    
+# Prerequisites
+
+[Drafter](https://github.com/apiaryio/drafter) is required if you want to use Blueprint API markup/Apiary API.
+
+To install on OS X:
+
+    brew install --HEAD https://raw.github.com/apiaryio/drafter/master/tools/homebrew/drafter.rb
+  
 # Installation
 
     pip install apiary2postman
@@ -44,12 +53,3 @@ It's also possible to specify the output file using the `--output`.
     cat some.json | apiary2postman json > postman.dump
 
 
-    
-# Prerequisites
-
-[Drafter](https://github.com/apiaryio/drafter) is required if you want to use Blueprint API markup/Apiary API.
-
-To install on OS X:
-
-    brew install --HEAD https://raw.github.com/apiaryio/drafter/master/tools/homebrew/drafter.rb
-  
