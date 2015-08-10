@@ -52,4 +52,6 @@ It's also possible to specify the output file using the `--output`.
 
     cat some.json | apiary2postman json > postman.dump
 
+# Contribution
 
+Contributions are greatly appreciated. What is most lacking is tests and would be super-grealy appreciated.
