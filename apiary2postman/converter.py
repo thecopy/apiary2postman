@@ -24,6 +24,7 @@ def _buildCollectionResponse(apiary):
 	}
 
 	for collection in collections:
+		result['id'] = collection['id']
 		result['folders'] += collection['folders']
 		result['requests'] += collection['requests']
 
