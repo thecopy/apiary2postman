@@ -158,8 +158,8 @@ def parseResourceGroups(resourceGroups, environment_vals, only_collection):
 						for header in response['headers']:
 							if header['name'] != 'Content-Type':
 								continue
-							# headers.append('Accept: ' + header['value'])
-
+							if 'Accept: ' + header['value'] not in headers:
+								headers.append('Accept: ' + header['value'])
 				request['headers'] = '\n'.join(headers)
 				# Add reference to collection to this request
 				# The collectionId field refers to the parent collection, not the folder
