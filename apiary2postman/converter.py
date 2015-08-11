@@ -19,6 +19,7 @@ def _buildCollectionResponse(apiary):
 	  'timestamp' : int(time()),
 	  'remote_id' : 0,
 	  'synced' : False,
+	  'order' : [],
 	  'folders' : [],
 	  'requests' : [],
 	}
@@ -114,6 +115,7 @@ def parseResourceGroups(resourceGroups, environment_vals, only_collection):
 			for action in resource['actions']:
 				request = dict()
 				request['id'] = str(uuid4())
+				request['folder'] = folder['id']
 				request['version'] = 2
 				request['name'] = action['name']
 				request['description'] = action['description']
@@ -156,7 +158,7 @@ def parseResourceGroups(resourceGroups, environment_vals, only_collection):
 						for header in response['headers']:
 							if header['name'] != 'Content-Type':
 								continue
-							headers.append('Accept: ' + header['value'])
+							# headers.append('Accept: ' + header['value'])
 
 				request['headers'] = '\n'.join(headers)
 				# Add reference to collection to this request
