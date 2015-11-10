@@ -15,7 +15,10 @@ def readInput():
 
 def check_drafter():
     try: 
-        subprocess.check_output(['which', 'drafter'])
+        if platform.startswith('win'):
+            subprocess.call(['drafter', '-v'], stdout=subprocess.PIPE) == 0
+        else:
+            subprocess.check_output(['which', 'drafter'])
     except: 
         print 'Please install drafter:'
         print ''
