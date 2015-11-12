@@ -3,14 +3,15 @@ from sys import stdout
 from uuid import uuid4
 from time import time
 
-def _buildCollectionResponse(apiary):
+def _buildCollectionResponse(apiary, single_collection):
 	environment = createEnvironment(apiary)
 
 	# Create the collection
 	collections = parseResourceGroups(
 		apiary['resourceGroups'], 
 		environment['values'], 
-		True)
+		True,
+		single_collection)
 
 	result = {
 		'id' : str(uuid4()),
@@ -31,7 +32,7 @@ def _buildCollectionResponse(apiary):
 
 	return result
 
-def _buildFullResponse(apiary):
+def _buildFullResponse(apiary, single_collection):
 	# Create the Environment
 	environment = createEnvironment(apiary)
 
@@ -45,19 +46,43 @@ def _buildFullResponse(apiary):
 
 	# Create the collection
 	result['collections'] = parseResourceGroups(
-		apiary['resourceGroups'], 
+		apiary, 
 		result['environments'][0]['values'], 
-		False)
+		False,
+		single_collection)
 
 	return result
 
-def write(json_data, out=stdout, only_collection=False, pretty=False):
+def _createCollection(name, description):
+	collection = dict()
+	collection['id'] = str(uuid4());
+	collection['folders'] = []
+	collection['requests'] = []
+	collection['name'] = name
+	collection['description'] = description
+	collection['timestamp'] = int(time())
+	collection['synced'] = False
+	collection['remote_id'] = 0
+	collection['order'] = []
+	return collection
+
+def _createFolder(name, description, collection):
+	folder = dict()
+	folder['id'] = str(uuid4())
+	folder['name'] = name
+	folder['description'] = description
+	folder['order'] = []
+	folder['collection_id'] = collection['id']
+	folder['collection_name'] = collection['name']	
+	return folder
+
+def write(json_data, out=stdout, only_collection=False, pretty=False, single_collection=False):
 	json_obj = json.loads(json_data)
 
 	if only_collection:
-		result_out = _buildCollectionResponse(json_obj)
+		result_out = _buildCollectionResponse(json_obj, single_collection)
 	else:
-		result_out = _buildFullResponse(json_obj)
+		result_out = _buildFullResponse(json_obj, single_collection)
 
 	if pretty:
 		json.dump(result_out, out, indent=2, separators=(',', ': '))
@@ -88,28 +113,33 @@ def createEnvironment(json_obj):
 
 	return environment
 
-def parseResourceGroups(resourceGroups, environment_vals, only_collection):
+def parseResourceGroups(apiary, environment_vals, only_collection, single_collection):
 	out = []
-	for resourceGroup in resourceGroups:
-		collection = dict()
-		collection['id'] = str(uuid4());
-		collection['folders'] = []
-		collection['requests'] = []
-		collection['name'] = resourceGroup['name']
-		collection['description'] = resourceGroup['description']
-		collection['timestamp'] = int(time())
-		collection['synced'] = False
-		collection['remote_id'] = 0
-		collection['order'] = []
 
-		for resource in resourceGroup['resources']:		
-			folder = dict()
-			folder['id'] = str(uuid4())
-			folder['name'] = resource['name']
-			folder['description'] = resource['description']
-			folder['order'] = []
-			folder['collection_id'] = collection['id']
-			folder['collection_name'] = collection['name']	
+	if single_collection:		
+		# Create THE collection
+		collection = _createCollection(apiary['name'], apiary['description'])
+		# Add collection to output
+		out.append(collection)
+
+	for resourceGroup in apiary['resourceGroups']:
+		if single_collection is False:
+			# Create collection per resource group
+			collection = _createCollection(resourceGroup['name'], resourceGroup['description'])
+			# Add collection to output
+			out.append(collection)
+		else:
+			# Create folder per resource group
+			folder = _createFolder(resourceGroup['name'], resourceGroup['description'], collection)
+			# Add folder json to collection
+			collection['folders'].append( folder )
+
+		for resource in resourceGroup['resources']:	
+			if single_collection is False:
+				# Create folder per resource
+				folder = _createFolder(resource['name'], resource['description'], collection)	
+				# Add folder json to collection
+				collection['folders'].append( folder )
 		
 			sub_url = resource['uriTemplate']
 			for action in resource['actions']:
@@ -168,8 +198,5 @@ def parseResourceGroups(resourceGroups, environment_vals, only_collection):
 				folder['order'].append( request['id'] )
 				# Add request json to the collection
 				collection['requests'].append(request)
-
-			# Add folder json to collection
-			collection['folders'].append( folder )
-		out.append(collection)
+		
 	return out

@@ -32,6 +32,7 @@ def main():
         epilog='Examples:\n\t' + argv[0] + ' --pretty api awattgarde\n\t' 
             + argv[0] + ' --only-collection --output awattgarde_collection.postman api awattgarde\n\t'
             + argv[0] + ' --only-collection json blueprint.json\n\t'
+            + argv[0] + ' --single-collection json blueprint.json\n\t'
             +'cat blueprint.json | ' + argv[0] + ' json > awattgarde_collection.postman\n\t'  )
 
 
@@ -51,6 +52,9 @@ def main():
     parser.add_argument('--only-collection', dest='only_collection', action='store_const', 
                         const=True, default=False,
                         help='generate Postman JSON for the first collection only.')
+    parser.add_argument('--single-collection', dest='single_collection', action='store_const', 
+                        const=True, default=False,
+                        help='generate Postman JSON for all resource groups in a single collection. Resource groups are mapped to folders.')
     parser_api.add_argument('key', metavar='api-key', nargs='?',
                         help='the Apiary API token. If not supplied APIARY_API_KEY environment variable is used.') 
     parser_api.add_argument('name', metavar='api-name', nargs=1,
@@ -93,8 +97,7 @@ def main():
     if args.output != stdout:
         output = output[0]
 
-    write(input, output, args.only_collection, args.pretty)
+    write(input, output, args.only_collection, args.pretty, args.single_collection)
 
 if  __name__ =='__main__':
     main()
-
