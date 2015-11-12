@@ -148,6 +148,9 @@ def parseResourceGroups(apiary, environment_vals, only_collection, single_collec
 				request['folder'] = folder['id']
 				request['version'] = 2
 				request['name'] = action['name']
+				if single_collection is True:
+					# Add resource as prefix
+					request['name'] = resource['name'] + ": " + request['name']
 				request['description'] = action['description']
 				request['descriptionFormat'] = 'html'
 				request['method'] = action['method']
