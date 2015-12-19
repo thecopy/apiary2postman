@@ -12,12 +12,25 @@ Supports
     
 # Prerequisites
 
-[Drafter](https://github.com/apiaryio/drafter) is required if you want to use API Blueprint/Apiary API.
+[Drafter](https://github.com/apiaryio/drafter) < 2.0 is required if you want to use API Blueprint/Apiary API.
 
 To install on OS X:
 
-    brew install --HEAD https://raw.github.com/apiaryio/drafter/master/tools/homebrew/drafter.rb
-  
+    brew install --HEAD https://raw.githubusercontent.com/apiaryio/drafter/b3dce8dda5d48b36e963abeffe5b0de7afecac3d/tools/homebrew/drafter.rb
+    
+To install from source:
+
+    git clone https://github.com/apiaryio/drafter
+    cd drafter
+    git checkout b3dce8d # This is the commit for release 0.1.9
+    ./configure
+    make
+    sudo make install
+
+Drafter is used to convert Blueprint API to JSON. The preferred version is v0.1.9.
+Drafter v2 changed the JSON output format to be incomptabile with apiary2postman.
+Feel free to submit a pull request which fixes this.
+
 # Installation
 
     pip install apiary2postman
