@@ -1,11 +1,21 @@
 #!/usr/bin/env python
-from sys import stdin, stdout, argv, exit
+from sys import stdin, stderr, stdout, argv, exit
 import argparse
 import subprocess
 import os
 import platform
 from converter import write
 from blueprint import blueprint2json,fetch_blueprint
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
 def readInput():
     content = ""
@@ -16,18 +26,24 @@ def readInput():
 
 def check_drafter():
     try: 
-        if platform.system().lower().startswith('win'):
-            subprocess.call(['drafter', '-v'], stdout=subprocess.PIPE) == 0
-        else:
-            subprocess.check_output(['which', 'drafter'])
+        assert subprocess.check_output(['drafter', '-v']).startswith('v0.1')
     except: 
-        print 'Please install drafter:'
-        print ''
-        print 'By using brew:'
-        print '\tbrew install --HEAD https://raw.github.com/apiaryio/drafter/master/tools/homebrew/drafter.rb'
-        print ''
-        print 'By source, see:'
-        print '\thttps://github.com/apiaryio/drafter'
+        print >> stderr, ''
+        print >> stderr, bcolors.BOLD +'Please install Drafter < v2' + bcolors.ENDC
+        print >> stderr, 'Drafter is used to convert Blueprint API to JSON. The preferred version is v0.1.9.'
+        print >> stderr, 'Drafter v2 changed the JSON output format to be incomptabile with apiary2postman.'
+        print >> stderr, 'Feel free to submit a pull request at GitHub which fixes this at https://github.com/thecopy/apiary2postman'
+        print >> stderr, ''
+        print >> stderr, 'By using ' + bcolors.BOLD + 'brew:' + bcolors.ENDC
+        print >> stderr, '\tbrew install --HEAD https://raw.githubusercontent.com/apiaryio/drafter/b3dce8dda5d48b36e963abeffe5b0de7afecac3d/tools/homebrew/drafter.rb'
+        print >> stderr, ''
+        print >> stderr, 'By ' + bcolors.BOLD + 'source:' + bcolors.ENDC
+        print >> stderr, '\tgit clone https://github.com/apiaryio/drafter'
+        print >> stderr, '\tcd drafter'
+        print >> stderr, '\tgit checkout b3dce8d ' + bcolors.HEADER + '# This is the commit for release 0.1.9' + bcolors.ENDC
+        print >> stderr, '\t./configure'
+        print >> stderr, '\tmake'
+        print >> stderr, '\tsudo make install'
         exit(3)
 
 def main():

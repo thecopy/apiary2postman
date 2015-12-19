@@ -12,6 +12,6 @@ def fetch_blueprint(name, key):
 
 def blueprint2json(blueprint):
 	p = Popen(['drafter', '--format', 'json'], stdin=PIPE, stdout=PIPE, stderr=PIPE)
-	out, err = p.communicate(blueprint)
+	out, err = p.communicate(blueprint.encode('utf8'))
 	return out
 	
