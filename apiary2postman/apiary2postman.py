@@ -3,6 +3,7 @@ from sys import stdin, stdout, argv, exit
 import argparse
 import subprocess
 import os
+import platform
 from converter import write
 from blueprint import blueprint2json,fetch_blueprint
 
@@ -15,7 +16,7 @@ def readInput():
 
 def check_drafter():
     try: 
-        if platform.startswith('win'):
+        if platform.system().lower().startswith('win'):
             subprocess.call(['drafter', '-v'], stdout=subprocess.PIPE) == 0
         else:
             subprocess.check_output(['which', 'drafter'])
