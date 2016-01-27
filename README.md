@@ -20,7 +20,7 @@ To install on OS X:
     
 To install from source:
 
-    git clone https://github.com/apiaryio/drafter
+    git clone --recursive https://github.com/apiaryio/drafter
     cd drafter
     git checkout b3dce8d # This is the commit for release 0.1.9
     ./configure
