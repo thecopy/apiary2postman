@@ -47,13 +47,17 @@ Feel free to submit a pull request which fixes this.
 
     cat some.blueprint | apiary2postman blueprint > postman.dump
 
-##### To generate a total Postman environment dump from Apiary API, use the `api` subcommand:
+##### To generate a total Postman environment dump from Apiary API, use the `api` subcommand with your Apiary API name:
  
-    apiary2postman api my_api > postman.dump
+    apiary2postman api my_api > my_api.dump
+
+##### If you don't have an API key, log in to [your Apiary account](https://apiary.io), go to Settings, scroll down to Tokens. Generate one if needed, and set the environment variable `APIARY_API_KEY` to that hex string.
+
+    APIARY_API_KEY=ffffffffffffffffffffffffffffffff apiary2postman api my_api > my_api.dump
 
 ###### Or to generate only a Postman collection from Apiary API:
 
-    apiary2postman --only-collection api my_api > postman.collection
+    apiary2postman --only-collection api my_api > my_api.collection
 
 It's also possible to specify the output file using the `--output`.
 
