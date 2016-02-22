@@ -35,6 +35,12 @@ Feel free to submit a pull request which fixes this.
 
     pip install apiary2postman
 
+### Or, run from your checkout
+
+    git clone <repo-url>
+    cd apiary2postman/apiary2postman
+    ./apiary2postman.py <args>
+
 # Usage
 
     apiary2postman json blueprint.json --output postman.json
