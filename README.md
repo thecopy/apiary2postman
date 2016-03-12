@@ -23,6 +23,7 @@ To install from source:
     git clone --recursive https://github.com/apiaryio/drafter
     cd drafter
     git checkout b3dce8d # This is the commit for release 0.1.9
+    git submodule update --init --recursive # Get all the dependencies needed for compile
     ./configure
     make
     sudo make install

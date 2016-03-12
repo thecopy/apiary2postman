@@ -41,6 +41,7 @@ def check_drafter():
         print >> stderr, '\tgit clone https://github.com/apiaryio/drafter'
         print >> stderr, '\tcd drafter'
         print >> stderr, '\tgit checkout b3dce8d ' + bcolors.HEADER + '# This is the commit for release 0.1.9' + bcolors.ENDC
+        print >> stderr, '\tgit submodule update --init --recursive # Get all the dependencies needed for compile'
         print >> stderr, '\t./configure'
         print >> stderr, '\tmake'
         print >> stderr, '\tsudo make install'
