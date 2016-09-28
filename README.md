@@ -58,7 +58,7 @@ Feel free to submit a pull request which fixes this.
  
     apiary2postman api my_api > my_api.dump
 
-##### If you don't have an API key, log in to [your Apiary account](https://apiary.io), go to Settings, scroll down to Tokens. Generate one if needed, and set the environment variable `APIARY_API_KEY` to that hex string.
+##### If you don't have an API key, go to https://login.apiary.io/tokens. Generate one if needed, and set the environment variable `APIARY_API_KEY` to that hex string.
 
     APIARY_API_KEY=ffffffffffffffffffffffffffffffff apiary2postman api my_api > my_api.dump
 
