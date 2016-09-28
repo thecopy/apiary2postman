@@ -50,7 +50,7 @@ Feel free to submit a pull request which fixes this.
 
     apiary2postman blueprint some.blueprint > postman.dump
   
-###### It is also possible to pipe everything:
+It is also possible to pipe everything:
 
     cat some.blueprint | apiary2postman blueprint > postman.dump
 
@@ -58,11 +58,11 @@ Feel free to submit a pull request which fixes this.
  
     apiary2postman api my_api > my_api.dump
 
-##### If you don't have an API key, go to https://login.apiary.io/tokens. Generate one if needed, and set the environment variable `APIARY_API_KEY` to that hex string.
+If you don't have an API key, go to https://login.apiary.io/tokens. Generate one if needed, and set the environment variable `APIARY_API_KEY` to that hex string.
 
     APIARY_API_KEY=ffffffffffffffffffffffffffffffff apiary2postman api my_api > my_api.dump
 
-###### Or to generate only a Postman collection from Apiary API:
+Or to generate only a Postman collection from Apiary API:
 
     apiary2postman --only-collection api my_api > my_api.collection
 
@@ -72,7 +72,7 @@ It's also possible to specify the output file using the `--output`.
 
     apiary2postman json some.json > postman.dump
     
-###### It is also possible to pipe everything:
+It is also possible to pipe everything:
 
     cat some.json | apiary2postman json > postman.dump
 
