@@ -8,7 +8,7 @@ def _buildCollectionResponse(apiary, single_collection):
 
 	# Create the collection
 	collections = parseResourceGroups(
-		apiary['resourceGroups'], 
+		apiary,
 		environment['values'], 
 		True,
 		single_collection)

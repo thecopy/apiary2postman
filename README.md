@@ -76,6 +76,9 @@ It is also possible to pipe everything:
 
     cat some.json | apiary2postman json > postman.dump
 
+##### Single Collection
+To force all resource groups to be created as Folder within the same Postman collection use `--single-collection` option.
+
 # Contribution
 
 Contributions are greatly appreciated. What is most lacking is tests and would be super-grealy appreciated.
