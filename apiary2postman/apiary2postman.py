@@ -92,11 +92,12 @@ def main():
     input = ''
     if hasattr(args, 'input'):
         # JSON mode
-        input = args.input.read()
+        input = args.input.read().decode('utf-8')
     elif hasattr(args, 'blueprint_input'):
         # blueprint mode
         check_drafter()
-        input = blueprint2json(args.blueprint_input.read())
+        bp = args.blueprint_input.read()
+        input = blueprint2json(bp.decode('utf-8'))
     else:
         # API mode
         check_drafter()
